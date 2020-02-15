@@ -1,0 +1,9 @@
+package package_linkedlist;
+
+import java.util.ArrayList;
+
+public class TestDemo02 {
+	public void main(String[] args) {
+		
+	}
+}

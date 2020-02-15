@@ -1,0 +1,38 @@
+package 多线程;
+
+
+class ThreadDemoww implements Runnable{
+	private String name;
+	
+	ThreadDemoww(String name){
+		this.name = name;
+	}
+	
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		for (int x = 1; x <= 20 ; x++) {
+			System.out.println("name = " + name + "……" + Thread.currentThread().getName() + "  " + x);
+		}
+		
+	}
+	
+}
+
+public class TreadDemo2 {
+	
+	
+	public static void main(String[] args) {
+		
+		//创建Runnable 子类的对象. 注意他并不是线程的对象
+		ThreadDemoww d = new ThreadDemoww("Demo");
+		//创建Thread类的对象，将Runnable接口的子类对象作为参数传递给Thread类的构造函数
+		Thread t1 = new Thread(d);
+		Thread t2 = new Thread(d);
+		//将线程启动
+		t1.start();
+		t2.start();
+		
+	}
+	
+}

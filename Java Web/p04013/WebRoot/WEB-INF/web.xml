@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.5" 
+	xmlns="http://java.sun.com/xml/ns/javaee" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
+	http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+	
+	<servlet>
+		<servlet-name>requestLine</servlet-name>
+		<servlet-class>RequestLineServlet</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>requestLine</servlet-name>
+		<url-pattern>/requestLine</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>requestHeader</servlet-name>
+		<servlet-class>RequestHeadersServlet</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>requestHeader</servlet-name>
+		<url-pattern>/requestHeader</url-pattern>
+	</servlet-mapping>
+	
+	
+	<servlet>
+		<servlet-name>requestParamsServlet</servlet-name>
+		<servlet-class>RequestParamsServlet</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>requestParamsServlet</servlet-name>
+		<url-pattern>/RequestParamsServlet</url-pattern>
+	</servlet-mapping>
+	
+	
+	<servlet>
+		<servlet-name>RequestForwardServlet</servlet-name>
+		<servlet-class>RequestForwardServlet</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>RequestForwardServlet</servlet-name>
+		<url-pattern>/requestForwardServlet</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>ResultServlet</servlet-name>
+		<servlet-class>ResultServlet</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>ResultServlet</servlet-name>
+		<url-pattern>/resultServlet</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>IncludingServlet</servlet-name>
+		<servlet-class>IncludingServlet</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>IncludingServlet</servlet-name>
+		<url-pattern>/includingServlet</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>IncludedServlet</servlet-name>
+		<servlet-class>IncludedServlet</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>IncludedServlet</servlet-name>
+		<url-pattern>/includedServlet</url-pattern>
+	</servlet-mapping>
+	
+	
+</web-app>

@@ -1,0 +1,28 @@
+package cn.it.cast.api.stringbuffer;
+
+public class StringBufferDemo {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		
+		/**
+		 * StringBuffer
+		 * 1.是一个字符串缓冲区， 其实就是一个容器
+		 * 2.长度是可变的， 任意类型都行   // 注意： 是将任意数据都转成字符串进行存储
+		 * 3.容器对象提供了很多对容器数据的操作功能， 比如： 添加， 删除， 插入，查找， 修改
+		 * 
+		 */
+		
+		
+		//1。 创建一个字符串缓冲区， 用于存储数据
+		StringBuffer sb = new StringBuffer();
+		
+		//2.添加数据
+		sb.append(true);
+		sb.append("abc");
+		
+		System.out.println(sb);
+
+	}
+
+}

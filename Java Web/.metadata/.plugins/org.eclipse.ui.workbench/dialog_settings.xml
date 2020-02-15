@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<section name="WorkbenchPreferenceDialogSettings">
+		<item value="11" key="DIALOG_Y_ORIGIN"/>
+		<item value="11" key="DIALOG_X_ORIGIN"/>
+	</section>
+	<section name="NewWizardAction">
+		<item value="com.aston.wizards.servlet.NewServletCreationWizard" key="NewWizardSelectionPage.STORE_SELECTED_ID"/>
+		<list key="NewWizardSelectionPage.STORE_EXPANDED_CATEGORIES_ID">
+			<item value="com.genuitec.eclipse.myeclipse"/>
+			<item value="com.genuitec.eclipse.myeclipse/com.genuitec.eclipse.myeclipse.web"/>
+		</list>
+	</section>
+	<section name="ShowViewDialog">
+		<item value="503" key="DIALOG_WIDTH"/>
+		<item value="com.genuitec.eclipse.ast.deploy.core.serverview" key="ShowViewDialog.STORE_SELECTED_VIEW_ID"/>
+		<item value="211" key="DIALOG_Y_ORIGIN"/>
+		<item value="510" key="DIALOG_HEIGHT"/>
+		<item value="720" key="DIALOG_X_ORIGIN"/>
+		<item value="1|Microsoft YaHei UI|9.0|0|WINDOWS|1|-18|0|0|0|400|0|0|0|1|0|0|0|0|Microsoft YaHei UI" key="DIALOG_FONT_NAME"/>
+		<list key="ShowViewDialog.STORE_EXPANDED_CATEGORIES_ID">
+			<item value="org.eclipse.ui"/>
+			<item value="org.eclipse.ant.ui.views"/>
+			<item value="org.eclipse.pde.api.tools.ui.views.apitooling.view.category"/>
+			<item value="com.genuitec.pulse.client.targetcfg.collab.ui.configuration"/>
+			<item value="org.eclipse.team.ccvs.ui"/>
+			<item value="org.eclipse.debug.ui"/>
+			<item value="org.eclipse.help.ui"/>
+			<item value="org.eclipse.jdt.ui.java"/>
+			<item value="org.eclipse.jdt.ui.java.browsing"/>
+			<item value="com.genuitec.eclipse.views.myEclipseAJAXCategory"/>
+			<item value="com.genuitec.eclipse.views.myEclipseCategory"/>
+			<item value="com.genuitec.eclipse.views.myEclipseDBCategory"/>
+			<item value="com.genuitec.eclipse.views.myEclipseJEECategory"/>
+		</list>
+	</section>
+</section>

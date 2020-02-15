@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<launchConfiguration type="org.eclipse.dltk.javascript.launching.JavaScriptLaunchConfigurationType">
+<stringAttribute key="console_id" value="1575857740689"/>
+<stringAttribute key="mainScript" value=""/>
+<stringAttribute key="nature" value="org.eclipse.wst.jsdt.core.jsNature"/>
+<listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_PATHS">
+<listEntry value="/First Web Project"/>
+</listAttribute>
+<listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_TYPES">
+<listEntry value="4"/>
+</listAttribute>
+<stringAttribute key="project" value="First Web Project"/>
+<stringAttribute key="url" value=""/>
+<booleanAttribute key="use_dltk_interactive_console" value="false"/>
+</launchConfiguration>

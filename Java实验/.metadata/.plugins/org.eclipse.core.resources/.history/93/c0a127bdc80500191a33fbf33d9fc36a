@@ -1,0 +1,49 @@
+package package_linkedlist;
+
+import java.util.ArrayList;
+import java.util.Collections;
+
+/*
+ * 需求：
+ * 	1.生成54张扑克牌（花色+ 数字）
+ * 	2.洗牌
+ * 	3.模拟三个玩家发牌，留底牌
+ * 
+ */
+
+public class TestDemo03Poker {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		//1. 定义一个集合来存数字（3-10 J， Q  K A 2）
+		ArrayList<String> number = new ArrayList<String>();
+		for (int i = 2; i <=10; i++) {
+			number.add(i + "");
+		}
+		Collections.addAll(number, "J","Q", "K", "A"); 
+//		number.add("J");
+//		number.add("Q");
+//		number.add("K");
+//		number.add("A");
+		
+		//2.定义一个集合来存花色
+		ArrayList<String> color = new ArrayList<String>();
+		Collections.addAll(color, "♥", "♠", "♦", "♣");
+		
+		//3.将数字和花色合并成扑克牌
+		ArrayList<String> poker = new ArrayList<String>();
+		for (String num : number) {
+			for (String col : color) {
+				poker.add(col+num);
+			}
+		}
+		
+		
+		//4.添加大小王
+		poker.add("🃏");
+		poker.add("🃏");
+		
+		System.out.println(poker);
+	}
+
+}
