@@ -8,19 +8,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-/**
- * Cookie快速入门
- */
-
-@WebServlet("/cookieDemo5")
-public class CookieDemo5 extends HttpServlet {
+@WebServlet("/cookieDemo")
+public class CookieDemo extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        //1.创建Cookie对象
-        Cookie cookie = new Cookie("msg", "你好");
-        cookie.setPath("/");
-        //2.发送Cookie兑现
-        response.addCookie(cookie);
-
+        //获取Cookie信息
+        System.out.println("day15");
+        Cookie[] cookies = request.getCookies();
+        if(cookies != null){
+            for(Cookie c : cookies){
+                String name = c.getName();
+                String value = c.getValue();
+                System.out.println(name + ":" + value);
+            }
+        }
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
