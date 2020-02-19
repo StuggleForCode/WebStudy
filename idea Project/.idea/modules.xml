@@ -10,6 +10,7 @@
       <module fileurl="file://$PROJECT_DIR$/day15/day15.iml" filepath="$PROJECT_DIR$/day15/day15.iml" />
       <module fileurl="file://$PROJECT_DIR$/day15_response/day15_response.iml" filepath="$PROJECT_DIR$/day15_response/day15_response.iml" />
       <module fileurl="file://$PROJECT_DIR$/day16_cookie&amp;session/day16_cookie&amp;session.iml" filepath="$PROJECT_DIR$/day16_cookie&amp;session/day16_cookie&amp;session.iml" />
+      <module fileurl="file://$PROJECT_DIR$/day17_el&amp;jstl/day17_el&amp;jstl.iml" filepath="$PROJECT_DIR$/day17_el&amp;jstl/day17_el&amp;jstl.iml" />
     </modules>
   </component>
 </project>

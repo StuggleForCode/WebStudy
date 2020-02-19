@@ -49,10 +49,10 @@
     </form>
 
     <div>
-        <%=request.getAttribute("cc_error") == null ? "":request.getAttribute("cc_error")%>
+        ${requestScope.cc_error}
     </div>
     <div>
-        <%=request.getAttribute("login_error") == null ? "":request.getAttribute("login_error")%>
+        ${requestScope.cc_login}
     </div>
 
 </body>
