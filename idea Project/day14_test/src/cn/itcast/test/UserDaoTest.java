@@ -10,7 +10,7 @@ public class UserDaoTest {
     public void testLogin(){
         User loginuser = new User();
         loginuser.setUsername("superbaby");
-        loginuser.setPassword("123");
+        loginuser.setPassword("1231");
 
         UserDao dao = new UserDao();
         User user = dao.login(loginuser);

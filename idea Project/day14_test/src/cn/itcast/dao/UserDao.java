@@ -3,6 +3,7 @@ package cn.itcast.dao;
 import cn.itcast.domain.User;
 import cn.itcast.util.JDBCUtils;
 import com.mysql.jdbc.JDBC4CallableStatement;
+import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 
@@ -23,12 +24,17 @@ public class UserDao {
      * @return user包含用户全部数据
      */
     public User login(User loginUser){
-        //1.编写sql
-        String sql = "Select * from user where username = ? and password = ?";
-        //2.调用query方法
-        User user = template.queryForObject(sql,
-                new BeanPropertyRowMapper<User>(User.class),
-                loginUser.getUsername(),loginUser.getPassword());
-        return user;
+        try {
+            //1.编写sql
+            String sql = "Select * from user where username = ? and password = ?";
+            //2.调用query方法
+            User user = template.queryForObject(sql,
+                    new BeanPropertyRowMapper<User>(User.class),
+                    loginUser.getUsername(),loginUser.getPassword());
+            return user;
+        } catch (DataAccessException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 }
