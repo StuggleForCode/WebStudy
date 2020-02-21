@@ -14,4 +14,9 @@ public interface UserService {
      * @return
      */
     public List<User> findAll();
+    /**
+     * 登陆方法
+     */
+    User login(User user);
+
 }
