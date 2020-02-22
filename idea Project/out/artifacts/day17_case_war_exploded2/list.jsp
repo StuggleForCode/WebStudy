@@ -36,6 +36,37 @@
                 location.href="${pageContext.request.contextPath}/delUserServlet" + id;
             }
         }
+        window.onload = function () {
+            //给删除选中按钮添加单击事件
+            document.getElementById("delSelected").onclick = function () {
+                if(confirm("您确定要删除选中条目吗？")){
+
+                    var flag = false;
+                    var cbs = document.getElementsByName("uid");
+                    for(var i = 0; i < cbs.length; i++){
+                       if(cbs[i].checked){
+                           //有一个条目被选中
+                           flag = true;
+                           break;
+                       }
+                    }
+                    if(flag){  //有条目被选中
+                        //表单提交
+                        document.getElementById("form").submit();
+                    }
+                }
+            }
+            //1.获取第一个cb
+            document.getElementById("firstCb").onclick = function () {
+                //2.获取下面列表中所有的Cb
+                var cbs = document.getElementsByName("uid");
+                //3.遍历
+                for(var i = 0; i < cbs.length; i++){
+                    //4.设置这些cbs[i]的checked状态 = firstCb.checked
+                    cbs[i].checked = this.checked;
+                }
+            }
+        }
     </script>
 </head>
 <body>
@@ -66,41 +97,43 @@
     <div style="float: right;margin: 5px;">
 
         <a class="btn btn-primary" href="${pageContext.request.contextPath}/add.jsp">添加联系人</a>
-        <a class="btn btn-primary" href="add.html">删除选中</a>
+        <a class="btn btn-primary" href="javascript:void(0);" id="delSelected">删除选中</a>
 
     </div>
 
-    <table border="1" class="table table-bordered table-hover">
-        <tr class="success">
-            <th><input type="checkbox"></th>
-            <th>编号</th>
-            <th>姓名</th>
-            <th>性别</th>
-            <th>年龄</th>
-            <th>籍贯</th>
-            <th>QQ</th>
-            <th>邮箱</th>
-            <th>操作</th>
-        </tr>
-
-        <c:forEach items="${users}" var="user" varStatus="s">
-            <tr>
-                <td><input type="checkbox"></td>
-                <td>${s.count}</td>
-                <td>${user.name}</td>
-                <td>${user.gender}</td>
-                <td>${user.age}</td>
-                <td>${user.address}</td>
-                <td>${user.qq}</td>
-                <td>${user.email}</td>
-                <td><a class="btn btn-default btn-sm" href="${pageContext.request.contextPath}/findUserServlet?id=${user.id}">修改</a>&nbsp;
-                    <a class="btn btn-default btn-sm" href="javascript:deleteUser(${user.id});">删除</a></td>
+    <form id="form" action="${pageContext.request.contextPath}/delSelectedServlet" method="post">
+        <table border="1" class="table table-bordered table-hover">
+            <tr class="success">
+                <th><input type="checkbox" id = "firstCb"></th>
+                <th>编号</th>
+                <th>姓名</th>
+                <th>性别</th>
+                <th>年龄</th>
+                <th>籍贯</th>
+                <th>QQ</th>
+                <th>邮箱</th>
+                <th>操作</th>
             </tr>
 
-        </c:forEach>
+            <c:forEach items="${users}" var="user" varStatus="s">
+                <tr>
+                    <td><input type="checkbox" name="uid" value="${user.id}"></td>
+                    <td>${s.count}</td>
+                    <td>${user.name}</td>
+                    <td>${user.gender}</td>
+                    <td>${user.age}</td>
+                    <td>${user.address}</td>
+                    <td>${user.qq}</td>
+                    <td>${user.email}</td>
+                    <td><a class="btn btn-default btn-sm" href="${pageContext.request.contextPath}/findUserServlet?id=${user.id}">修改</a>&nbsp;
+                        <a class="btn btn-default btn-sm" href="javascript:deleteUser(${user.id});">删除</a></td>
+                </tr>
+
+            </c:forEach>
+        </table>
+    </form>
 
 
-    </table>
     <div>
         <nav aria-label="Page navigation">
             <ul class="pagination">
