@@ -1,5 +1,6 @@
 package cn.itcast.service;
 
+import cn.itcast.domain.PageBean;
 import cn.itcast.domain.User;
 
 import java.util.List;
@@ -49,4 +50,12 @@ public interface UserService {
      * @param ids
      */
     void deleteSelectUserById(String[] ids);
+
+    /**
+     * 分页查询
+     * @param currentPage
+     * @param rows
+     * @return
+     */
+    PageBean<User> findUserByPage(String currentPage, String rows);
 }
