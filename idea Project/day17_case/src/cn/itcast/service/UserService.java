@@ -19,4 +19,28 @@ public interface UserService {
      */
     User login(User user);
 
+    /**
+     * 保存User
+     * @param user
+     */
+    void addUser(User user);
+
+    /**
+     * 删除User
+     * @param id
+     */
+    void deleteUser(String id);
+
+    /**
+     * 根据id查找用户
+     * @param id
+     * @return
+     */
+    User findUserById(String id);
+
+    /**
+     * 更新用户信息
+     * @param user
+     */
+    void updateUser(User user);
 }

@@ -14,4 +14,11 @@ public interface UserDao {
 
     User findUserByUsernameAndPassword(String username, String password);
 
+    void add(User user);
+
+    void del(int parseInt);
+
+    User findUserById(int parseInt);
+
+    void updateUser(User user);
 }
