@@ -36,7 +36,7 @@ public class UpdateUserServlet extends HttpServlet {
         service.updateUser(user);
 
         //5.跳转查询所有Servlet
-        response.sendRedirect(request.getContextPath()+"/userListServlet");
+        response.sendRedirect(request.getContextPath()+"/findUserByPageServlet");
 
     }
 
