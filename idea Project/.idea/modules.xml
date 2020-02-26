@@ -3,19 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Hello_idea/Hello_idea.iml" filepath="$PROJECT_DIR$/Hello_idea/Hello_idea.iml" />
-      <module fileurl="file://$PROJECT_DIR$/day13_servlet/day13_servlet.iml" filepath="$PROJECT_DIR$/day13_servlet/day13_servlet.iml" />
-      <module fileurl="file://$PROJECT_DIR$/day13_tomcat/day13_tomcat.iml" filepath="$PROJECT_DIR$/day13_tomcat/day13_tomcat.iml" />
-      <module fileurl="file://$PROJECT_DIR$/day14_servlet&amp;http&amp;request/day14_servlet&amp;http&amp;request.iml" filepath="$PROJECT_DIR$/day14_servlet&amp;http&amp;request/day14_servlet&amp;http&amp;request.iml" />
-      <module fileurl="file://$PROJECT_DIR$/day14_test/day14_test.iml" filepath="$PROJECT_DIR$/day14_test/day14_test.iml" />
-      <module fileurl="file://$PROJECT_DIR$/day15/day15.iml" filepath="$PROJECT_DIR$/day15/day15.iml" />
-      <module fileurl="file://$PROJECT_DIR$/day15_response/day15_response.iml" filepath="$PROJECT_DIR$/day15_response/day15_response.iml" />
-      <module fileurl="file://$PROJECT_DIR$/day16_cookie&amp;session/day16_cookie&amp;session.iml" filepath="$PROJECT_DIR$/day16_cookie&amp;session/day16_cookie&amp;session.iml" />
-      <module fileurl="file://$PROJECT_DIR$/day17_case/day17_case.iml" filepath="$PROJECT_DIR$/day17_case/day17_case.iml" />
-      <module fileurl="file://$PROJECT_DIR$/day17_el&amp;jstl/day17_el&amp;jstl.iml" filepath="$PROJECT_DIR$/day17_el&amp;jstl/day17_el&amp;jstl.iml" />
-      <module fileurl="file://$PROJECT_DIR$/day19_filter&amp;listener/day19_filter&amp;listener.iml" filepath="$PROJECT_DIR$/day19_filter&amp;listener/day19_filter&amp;listener.iml" />
-      <module fileurl="file://$PROJECT_DIR$/day20_JQuery基础/day20_JQuery基础.iml" filepath="$PROJECT_DIR$/day20_JQuery基础/day20_JQuery基础.iml" />
-      <module fileurl="file://$PROJECT_DIR$/day23_redis/day23_redis.iml" filepath="$PROJECT_DIR$/day23_redis/day23_redis.iml" />
-      <module fileurl="file://$PROJECT_DIR$/maven_web/maven_web.iml" filepath="$PROJECT_DIR$/maven_web/maven_web.iml" />
+      <module fileurl="file://$PROJECT_DIR$/travel/travel.iml" filepath="$PROJECT_DIR$/travel/travel.iml" />
     </modules>
   </component>
 </project>
