@@ -1,4 +1,4 @@
-package cn.itcast.jdbc;
+package cn.itcast.jdbc.example;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 

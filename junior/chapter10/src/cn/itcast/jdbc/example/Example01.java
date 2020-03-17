@@ -1,4 +1,4 @@
-package cn.itcast.jdbc;
+package cn.itcast.jdbc.example;
 
 import org.apache.commons.dbcp.BasicDataSource;
 
