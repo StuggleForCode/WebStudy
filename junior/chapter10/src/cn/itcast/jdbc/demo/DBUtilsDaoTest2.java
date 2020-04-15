@@ -8,9 +8,9 @@ public class DBUtilsDaoTest2 {
     private static DBUtilsDdao dao = new DBUtilsDdao();
     public static void testupdate() throws SQLException {
         User user = new User();
-        user.setuName("zhaoliu");
+        user.setuName("里哈很好");
         user.setuPassword("1234567890");
-        user.setuId(4);
+        user.setuId(2);
         boolean b = dao.update(user);
         System.out.println(b);
     }

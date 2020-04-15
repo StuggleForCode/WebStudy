@@ -1,0 +1,18 @@
+<component name="libraryTable">
+  <library name="c3p0-0.9.1.2 (2)">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/itcaststore/web/lib/c3p0-0.9.1.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/itcaststore/web/lib/commons-beanutils-1.8.3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/itcaststore/web/lib/commons-dbutils-1.4.jar!/" />
+      <root url="jar://$PROJECT_DIR$/itcaststore/web/lib/commons-fileupload-1.2.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/itcaststore/web/lib/commons-io-1.4.jar!/" />
+      <root url="jar://$PROJECT_DIR$/itcaststore/web/lib/commons-logging-1.1.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/itcaststore/web/lib/jstl.jar!/" />
+      <root url="jar://$PROJECT_DIR$/itcaststore/web/lib/mail.jar!/" />
+      <root url="jar://$PROJECT_DIR$/itcaststore/web/lib/mysql-connector-java-5.0.8-bin.jar!/" />
+      <root url="jar://$PROJECT_DIR$/itcaststore/web/lib/standard.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

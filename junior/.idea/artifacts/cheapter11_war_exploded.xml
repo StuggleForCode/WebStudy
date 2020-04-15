@@ -2,10 +2,10 @@
   <artifact type="exploded-war" name="cheapter11:war exploded">
     <output-path>$PROJECT_DIR$/out/artifacts/cheapter11_war_exploded</output-path>
     <root id="root">
-      <element id="javaee-facet-resources" facet="cheapter11/web/Web" />
+      <element id="javaee-facet-resources" facet="chapter11/web/Web" />
       <element id="directory" name="WEB-INF">
         <element id="directory" name="classes">
-          <element id="module-output" name="cheapter11" />
+          <element id="module-output" name="chapter11" />
         </element>
       </element>
     </root>
