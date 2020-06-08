@@ -4,6 +4,6 @@
     <title>$Title$</title>
   </head>
   <body>
-  $END$
+    <a href="${pageContext.request.contextPath}/testServlet?category=计算机">点击</a>
   </body>
 </html>

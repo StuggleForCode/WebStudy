@@ -61,7 +61,7 @@ class MyRequest extends HttpServletRequestWrapper{
                     if(values != null){
                         for(int i = 0; i < values.length; i++){
                             try {
-                                values[i] = new String(values[i].getBytes("ISO-8859-1"),"utf-8");
+//                                values[i] = new String(values[i].getBytes("ISO-8859-1"),"utf-8");
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }
