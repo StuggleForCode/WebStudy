@@ -3,6 +3,7 @@ package cn.itcast.itcaststore.service;
 import cn.itcast.itcaststore.dao.ProductDao;
 import cn.itcast.itcaststore.domain.PageBean;
 import cn.itcast.itcaststore.domain.Product;
+import cn.itcast.itcaststore.exception.FindProductByIdException;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -33,6 +34,15 @@ public class ProductService {
         return bean;
     }
 
+    //根据ID查找商品
+    public Product findProductById(String id) throws FindProductByIdException {
+        try {
+            return dao.findProductById(id);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new FindProductByIdException("根据ID查找商品失败！");
+        }
+    }
 
     public static void main(String[] args) {
         ProductService service = new ProductService();
@@ -43,4 +53,5 @@ public class ProductService {
         }
 
     }
+
 }

@@ -39,12 +39,12 @@ public class ShowProductByPageServlet extends HttpServlet {
         //4.调用service，获取当前页分页的bean数据
         ProductService service = new ProductService();
         PageBean bean = service.findProductByPage(currentPage, currentCount, category);
-        System.out.println("wwwww");
-        System.out.println(category);
-        List<Product> ps = bean.getPs();
-        for(int i = 0; i <ps.size(); i++){
-            System.out.println(ps.get(i).getName());
-        }
+//        System.out.println("wwwww");
+//        System.out.println(category);
+//        List<Product> ps = bean.getPs();
+//        for(int i = 0; i <ps.size(); i++){
+//            System.out.println(ps.get(i).getName());
+//        }
         //5.保存数据，跳转到商品列表也页面
         request.setAttribute("bean", bean);
         request.getRequestDispatcher("/client/product_list.jsp").forward(request,response);
