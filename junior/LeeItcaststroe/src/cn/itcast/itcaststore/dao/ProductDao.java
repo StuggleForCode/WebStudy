@@ -1,5 +1,7 @@
 package cn.itcast.itcaststore.dao;
 
+import cn.itcast.itcaststore.domain.Order;
+import cn.itcast.itcaststore.domain.OrderItem;
 import cn.itcast.itcaststore.domain.Product;
 import cn.itcast.itcaststore.utils.DataSourceUtils;
 import org.apache.commons.dbutils.QueryRunner;
@@ -170,6 +172,33 @@ public class ProductDao {
         return null;
     }
 
+    //11.生成订单时，减少商品数量
+    public void changeProductNum(Order order) throws SQLException {
+        String sql = "update products set pnum = pnum - ? where id = ?";
+        QueryRunner runner = new QueryRunner();
+        List<OrderItem> items = order.getOrderItemList();
+        Object[][] params = new Object[items.size()][2];
+        for(int i = 0; i < params.length; i++){
+            params[i][0] = items.get(i).getBuyNum();
+            params[i][1] = items.get(i).getProduct().getId();
+        }
+        runner.batch(DataSourceUtils.getConnection(), sql ,params);
+    }
+
+    //12.删除订单时，修改商品的数量
+    public void updateProductNum(Order order) throws SQLException {
+        OrderItemDao orderItemDao = new OrderItemDao();
+        List<OrderItem> items = orderItemDao.findOrderItemByOrder(order);
+        String sql = "update products set pnum = pnum + ? where id = ?";
+        QueryRunner runner = new QueryRunner();
+        Object[][] params = new Object[items.size()][2];
+        for(int i = 0; i < params.length; i++){
+            params[i][0] = items.get(i).getBuyNum();
+            params[i][1] = items.get(i).getProduct().getId();
+        }
+        runner.batch(DataSourceUtils.getConnection(), sql ,params);
+    }
+
     public static void main(String[] args) throws SQLException{
         ProductDao dao = new ProductDao();
 
@@ -206,10 +235,31 @@ public class ProductDao {
 //            System.out.println(list.get(i).getName());
 //        }
 
-        List<Product> list = dao.findBookByName(1, 4, "e");
-        for (int i = 0; i < list.size(); i++){
-            System.out.println(list.get(i).getName());
-        }
-    }
+//        List<Product> list = dao.findBookByName(1, 4, "e");
+//        for (int i = 0; i < list.size(); i++){
+//            System.out.println(list.get(i).getName());
+//        }
 
+//        dao.changeProductNum(order);
+
+        /*Order order = new Order();
+        Product product = new Product();
+        product.setId("79bbe618-d2f8-4081-b35a-62ebbe938b64");
+        OrderItem item = new OrderItem();
+        item.setBuyNum(2);
+        item.setProduct(product);
+        List<OrderItem> orderItems = new ArrayList<OrderItem>();
+        orderItems.add(item);
+        order.setOrderItemList(orderItems);
+        dao.changeProductNum(order);*/
+
+        Product product = new Product();
+        product.setId("79bbe618-d2f8-4081-b35a-62ebbe938b64");
+        OrderItem item = new OrderItem();
+        item.setBuyNum(2);
+        item.setProduct(product);
+        List<OrderItem> orderItems = new ArrayList<OrderItem>();
+        orderItems.add(item);
+//        dao.updateProductNum();
+    }
 }

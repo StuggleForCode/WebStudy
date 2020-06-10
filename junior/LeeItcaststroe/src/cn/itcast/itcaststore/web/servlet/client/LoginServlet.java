@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @WebServlet("/loginServlet")
@@ -23,6 +24,8 @@ public class LoginServlet extends HttpServlet {
         try {
             User user = service.login(username, password);
             //4.判断是管理员还是普通用胡，分别进入管理员home页面和我的账户myAccount页面
+            HttpSession session = request.getSession();
+            session.setAttribute("user", user);
             String role = user.getRole();
             if("超级用户".equals(role)){
                 response.sendRedirect(request.getContextPath() + "/admin/login/home.jsp");
