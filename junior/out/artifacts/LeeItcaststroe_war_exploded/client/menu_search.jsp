@@ -47,7 +47,7 @@
     <a href="${pageContext.request.contextPath}/showProductByPageServlet" style="color:#b4d76d">全部商品目录</a>
 </div>
 <div id="divsearch">
-    <form action="${pageContext.request.contextPath }/MenuSearchServlet" id="searchform">
+    <form action="${pageContext.request.contextPath }/menuSearchServlet" id="searchform">
         <table width="100%" border="0" cellspacing="0">
             <tr>
                 <td style="text-align:right; padding-right:220px">

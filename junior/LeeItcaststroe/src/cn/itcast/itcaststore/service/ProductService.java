@@ -44,12 +44,43 @@ public class ProductService {
         }
     }
 
+    //前台，用户搜索框根据书名模糊查找相应图书
+    public PageBean findBookByName(int currentPage, int currentCount, String searchfield){
+        PageBean bean = new PageBean();
+        //1.封装每页显示的数据条数
+        bean.setCurrentCount(currentCount);
+        //2.封装当前页码
+        bean.setCurrentPage(currentPage);
+        bean.setSearchfiled(searchfield);//封装查询的图书名
+        //3.获取总条数
+        try {
+            int totalCount = dao.findBookByNameAllCount(searchfield);
+            bean.setTotalCount(totalCount);
+            //4.获取总页数
+            int totalPage = (int) Math.ceil(totalCount*1.0/currentCount);
+            bean.setTotalPage(totalPage);
+            //5.查找满足条件的图书
+            List<Product> products = dao.findBookByName(currentPage,currentCount,searchfield);
+            bean.setPs(products);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException("前台搜索框根据书名查询失败！");
+        }
+        return bean;
+    }
+
     public static void main(String[] args) {
         ProductService service = new ProductService();
-        PageBean bean = service.findProductByPage(1, 4, "少儿");
-        List<Product> ps = bean.getPs();
-        for(int i = 0; i <ps.size(); i++){
-            System.out.println(ps.get(i).getName());
+//        PageBean bean = service.findProductByPage(1, 4, "少儿");
+//        List<Product> ps = bean.getPs();
+//        for(int i = 0; i <ps.size(); i++){
+//            System.out.println(ps.get(i).getName());
+//        }
+
+        PageBean pageBean = service.findBookByName(1, 2, "java");
+        List<Product> ps = pageBean.getPs();
+        for (Product p:ps){
+            System.out.println(p.getName());
         }
 
     }

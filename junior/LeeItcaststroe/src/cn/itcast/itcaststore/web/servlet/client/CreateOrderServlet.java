@@ -36,14 +36,6 @@ public class CreateOrderServlet extends HttpServlet {
         } catch (InvocationTargetException e) {
             e.printStackTrace();
         }
-        order.setReceiverAddress(request.getParameter("receiverAddress"));
-        order.setReceiverPhone(request.getParameter("receiverPhone"));
-        order.setReceiverName(request.getParameter("receiverName"));
-        order.setMoney(Double.valueOf(request.getParameter("money")));
-        System.out.println(order.getReceiverName());
-        System.out.println(order.getReceiverPhone());
-        System.out.println(order.getReceiverAddress());
-        System.out.println(order.getMoney());
         order.setId(IdUtils.getUUID());//封装订单id
         order.setUser(user);//封装装用户信息到订单
         for(Product p:cart.keySet()){

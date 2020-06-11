@@ -8,6 +8,7 @@ import cn.itcast.itcaststore.domain.OrderItem;
 import cn.itcast.itcaststore.domain.Product;
 import cn.itcast.itcaststore.domain.User;
 import cn.itcast.itcaststore.utils.DataSourceUtils;
+import com.sun.org.apache.xpath.internal.operations.Or;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -80,6 +81,39 @@ public class OrderService {
         }
     }
 
+    //3.根据用户查找订单的方法
+    public List<Order> findOrderByUser(User user){
+        List<Order> orders = null;
+        try {
+            orders = orderDao.findOrderByUser(user);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return orders;
+    }
+
+    //4.根据id查找订单
+    public Order findOrderById(String id){
+        Order order = null;
+        try {
+            order = orderDao.findOrderById(id);
+            List<OrderItem> orderItems = orderItemDao.findOrderItemByOrder(order);
+            order.setOrderItemList(orderItems);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return order;
+    }
+
+    //5.支付后更新状态为1
+    public void updateState(String id){
+        try {
+            orderDao.updateOrderSate(id);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
     public static void main(String[] args) throws SQLException {
         OrderService service = new OrderService();
 //        Order order = new Order();
@@ -105,9 +139,24 @@ public class OrderService {
 //        order.setOrderItemList(orderItems);
 //        service.addOrder(order);
 
-        Order order = new Order();
-        OrderDao orderDao = new OrderDao();
-        order = orderDao.findOrderById("d23a4e10-e21c-4399-b867-3dc89e7b30bc");
-        service.delOrder(order);
+//        Order order = new Order();
+//        OrderDao orderDao = new OrderDao();
+//        order = orderDao.findOrderById("d23a4e10-e21c-4399-b867-3dc89e7b30bc");
+//        service.delOrder(order);
+
+//        User user = new User();
+//        user.setId(3);
+//        List<Order> orders =  service.findOrderByUser(user);
+//        for(Order order:orders){
+//            System.out.println(order.getId());
+//        }
+
+//        Order order = service.findOrderById("677a7314-0e16-4e18-8aec-552f848e0d75");
+//        List<OrderItem> items = order.getOrderItemList();
+//        for(OrderItem item:items){
+//            System.out.println(item.getProduct().getId());
+//        }
+        service.updateState("123id");
+
     }
 }
