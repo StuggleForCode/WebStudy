@@ -69,6 +69,15 @@ public class ProductService {
         return bean;
     }
 
+    //前台，获得本周热销商品
+    public List<Object[]> getWeekHotProduct(){
+        try {
+            return dao.getWeekHotProduct();
+        } catch (SQLException throwables) {
+            throw new RuntimeException("前台获取本周热销商品失败");
+        }
+    }
+
     public static void main(String[] args) {
         ProductService service = new ProductService();
 //        PageBean bean = service.findProductByPage(1, 4, "少儿");
@@ -77,10 +86,17 @@ public class ProductService {
 //            System.out.println(ps.get(i).getName());
 //        }
 
-        PageBean pageBean = service.findBookByName(1, 2, "java");
-        List<Product> ps = pageBean.getPs();
-        for (Product p:ps){
-            System.out.println(p.getName());
+//        PageBean pageBean = service.findBookByName(1, 2, "java");
+//        List<Product> ps = pageBean.getPs();
+//        for (Product p:ps){
+//            System.out.println(p.getName());
+//        }
+
+        List<Object[]> list = service.getWeekHotProduct();
+        for(Object[] obArray:list){
+            for(Object ob:obArray){
+                System.out.println(ob.toString());
+            }
         }
 
     }

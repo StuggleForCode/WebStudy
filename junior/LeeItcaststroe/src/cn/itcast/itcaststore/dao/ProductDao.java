@@ -5,6 +5,7 @@ import cn.itcast.itcaststore.domain.OrderItem;
 import cn.itcast.itcaststore.domain.Product;
 import cn.itcast.itcaststore.utils.DataSourceUtils;
 import org.apache.commons.dbutils.QueryRunner;
+import org.apache.commons.dbutils.handlers.ArrayListHandler;
 import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
 import org.apache.commons.dbutils.handlers.ScalarHandler;
@@ -199,6 +200,16 @@ public class ProductDao {
         runner.batch(DataSourceUtils.getConnection(), sql ,params);
     }
 
+    //前台，获取本周商品热卖
+    public List<Object[]> getWeekHotProduct() throws SQLException {
+        String sql = "select products.id, products.name, products.imgurl, sum(buynum) totalSalSum" +
+                " from orders, orderitem, products where orders.id = orderitem.order_id" +
+                " and orderitem.product_id = products.id group by product_id" +
+                " order by totalSalsum desc limit 0, 2";
+        QueryRunner runner = new QueryRunner(DataSourceUtils.getDataSource());
+        return runner.query(sql, new ArrayListHandler());
+    }
+
     public static void main(String[] args) throws SQLException{
         ProductDao dao = new ProductDao();
 
@@ -253,13 +264,21 @@ public class ProductDao {
         order.setOrderItemList(orderItems);
         dao.changeProductNum(order);*/
 
-        Product product = new Product();
-        product.setId("79bbe618-d2f8-4081-b35a-62ebbe938b64");
-        OrderItem item = new OrderItem();
-        item.setBuyNum(2);
-        item.setProduct(product);
-        List<OrderItem> orderItems = new ArrayList<OrderItem>();
-        orderItems.add(item);
+//        Product product = new Product();
+//        product.setId("79bbe618-d2f8-4081-b35a-62ebbe938b64");
+//        OrderItem item = new OrderItem();
+//        item.setBuyNum(2);
+//        item.setProduct(product);
+//        List<OrderItem> orderItems = new ArrayList<OrderItem>();
+//        orderItems.add(item);
 //        dao.updateProductNum();
+
+
+        List<Object[]> list = dao.getWeekHotProduct();
+        for(Object[] obArray:list){
+            for(Object ob:obArray){
+                System.out.println(ob.toString());
+            }
+        }
     }
 }
