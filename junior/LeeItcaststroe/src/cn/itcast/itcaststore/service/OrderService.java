@@ -114,6 +114,28 @@ public class OrderService {
         }
     }
 
+    //后台 查找所有订单
+    public List<Order> findAllOrder(){
+        List<Order> orders = null;
+        try {
+            orders = orderDao.findAllOrder();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return orders;
+    }
+
+    //后台 多条件查询订单，条件是订单号，收货人
+    public List<Order> findOrderByManyCondition(String id, String receiverName){
+        List<Order> list = null;
+        try {
+            list = orderDao.findOrderByManyCondition(id, receiverName);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return list;
+    }
+
     public static void main(String[] args) throws SQLException {
         OrderService service = new OrderService();
 //        Order order = new Order();
@@ -156,7 +178,22 @@ public class OrderService {
 //        for(OrderItem item:items){
 //            System.out.println(item.getProduct().getId());
 //        }
-        service.updateState("123id");
+//        service.updateState("123id");
 
+//        List<Order> list = service.findAllOrder();
+//        System.out.println("jjj");
+//        for(Order order:list){
+//            System.out.println(order.getId());
+//        }
+
+//        List<Order> orders = service.findAllOrder();
+//        for(int i = 0; i < orders.size(); i++){
+//            System.out.println(orders.get(i).getId());
+//            System.out.println(orders.get(i).getUser().getUsername());
+//        }
+        List<Order> order = service.findOrderByManyCondition(null, "mandan");
+        for(Order list:order){
+            System.out.println(list.getId());
+        }
     }
 }

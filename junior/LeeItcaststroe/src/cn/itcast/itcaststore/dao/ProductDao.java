@@ -63,7 +63,7 @@ public class ProductDao {
             list.add(name);
         }
         if(category != null && category.trim().length()>0){
-            sql += "  and categroy = ?";
+            sql += "  and category = ?";
             list.add(category);
         }
         if(minprice != null && maxprice != null
@@ -210,6 +210,17 @@ public class ProductDao {
         return runner.query(sql, new ArrayListHandler());
     }
 
+    //后台 销售榜单
+    public List<Object[]> salesList(String year, String month) throws SQLException {
+       String sql = " SELECT  products.name, SUM(buynum) totalSalNum FROM orderitem, products, orders" +
+               "        WHERE  orderitem.product_id = products.id AND orderitem.order_id = orders.id and paystate = 1" +
+               "        AND YEAR(ordertime) = ? AND MONTH(ordertime) = ?" +
+               "        GROUP BY products.name" +
+               "        ORDER BY totalSalNum DESC";
+        QueryRunner runner = new QueryRunner(DataSourceUtils.getDataSource());
+        return runner.query(sql ,new ArrayListHandler(), year, month);
+    }
+
     public static void main(String[] args) throws SQLException{
         ProductDao dao = new ProductDao();
 
@@ -274,7 +285,7 @@ public class ProductDao {
 //        dao.updateProductNum();
 
 
-        List<Object[]> list = dao.getWeekHotProduct();
+        List<Object[]> list = dao.salesList("2020", "6");
         for(Object[] obArray:list){
             for(Object ob:obArray){
                 System.out.println(ob.toString());

@@ -78,6 +78,66 @@ public class ProductService {
         }
     }
 
+    //后台，查询所有商品信息
+    public List<Product> listAll(){
+        try {
+            return dao.listAll();
+        } catch (SQLException throwables) {
+//            throw new ListProductExcepion("查询商品异常");
+        }
+        return null;
+    }
+
+    //后台多条件查询
+    public List<Product> findProductByManyCondition(String id, String name, String category, String minPrice, String maxPrice){
+        List<Product> ps = null;
+        try {
+            ps = dao.findProductByManyCondition(id, name ,category,minPrice, maxPrice);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return ps;
+    }
+
+    //后台商品增加
+    public void addProduct(Product product){
+        try {
+            dao.addProduct(product);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    //后台商品编辑
+    public void editProduct(Product product){
+        try {
+            dao.editProduct(product);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    //后台商品删除
+    public void delProduct(String id){
+        try {
+            dao.deleteProduct(id);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    //下载销售榜单
+    public List<Object[]> download(String year, String month){
+        List<Object[]> salesList = null;
+        try {
+            salesList = dao.salesList(year, month);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return  salesList;
+    }
+
+
     public static void main(String[] args) {
         ProductService service = new ProductService();
 //        PageBean bean = service.findProductByPage(1, 4, "少儿");
@@ -92,7 +152,31 @@ public class ProductService {
 //            System.out.println(p.getName());
 //        }
 
-        List<Object[]> list = service.getWeekHotProduct();
+//        List<Object[]> list = service.getWeekHotProduct();
+//        for(Object[] obArray:list){
+//            for(Object ob:obArray){
+//                System.out.println(ob.toString());
+//            }
+//        }
+
+//        List<Product> products = service.listAll();
+//        for (Product product:products){
+//            System.out.println(product.getName());
+//        }
+//
+//        List<Product> products = service.findProductByManyCondition(null, null, null, "50", "100");
+//        for (Product product:products){
+//            System.out.println(product.getName());
+//        }
+
+//        Product p = new Product();
+//        p.setId("123456");
+//        p.setName("Java核心技术修改");
+//        p.setDescription("Java核心技术");
+//        service.editProduct(p);
+//        service.delProduct("123456");
+
+        List<Object[]> list = service.download("2020", "6");
         for(Object[] obArray:list){
             for(Object ob:obArray){
                 System.out.println(ob.toString());
