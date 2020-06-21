@@ -4,6 +4,7 @@ import cn.itcast.jdbc.Dao.Impl.UsersDaoImpl;
 import cn.itcast.jdbc.Dao.UsersDao;
 import cn.itcast.jdbc.domain.User;
 
+import java.sql.SQLException;
 import java.util.List;
 
 public interface UserService {
@@ -12,13 +13,13 @@ public interface UserService {
      * @param user
      * @return
      */
-    public boolean insertUser(User user);
+    public void insertUser(User user) throws SQLException;
 
     /**
      * 查询所有用户
      * @return
      */
-    public List<User> findAll();
+    public List<User> findAll() throws SQLException;
 
     /**
      * 根据id查找指定的user
@@ -32,12 +33,14 @@ public interface UserService {
      * @param id
      * @return
      */
-    public boolean del(int id);
+    public void del(int id);
 
     /**
      * 修改用户
      * @param user
      * @return
      */
-    public boolean update(User user);
+    public void update(User user);
+
+    public List<User> findUserByManyCondition(String uId, String uBankId, String uName) throws SQLException;
 }

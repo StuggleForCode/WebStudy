@@ -21,5 +21,7 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" scope="PROVIDED" name="Tomcat 8.5.40" level="application_server_libraries" />
     <orderEntry type="library" name="mysql-connector-java-5.1.5-bin" level="project" />
+    <orderEntry type="library" name="c3p0-0.9.1.2 (5)" level="project" />
+    <orderEntry type="module" module-name="LeeItcaststroe" />
   </component>
 </module>

@@ -5,33 +5,39 @@ import cn.itcast.jdbc.Dao.UsersDao;
 import cn.itcast.jdbc.domain.User;
 import cn.itcast.jdbc.service.UserService;
 
+import java.sql.SQLException;
 import java.util.List;
 
 public class UserServiceImpl implements UserService {
     private UsersDao dao = new UsersDaoImpl();
 
     @Override
-    public boolean insertUser(User user) {
-        return dao.insertUser(user);
+    public void insertUser(User user) throws SQLException {
+        dao.insertUser(user);
     }
 
     @Override
-    public List<User> findAll() {
+    public List<User> findAll() throws SQLException {
         return dao.findAll();
     }
 
     @Override
     public User find(int id) {
-        return dao.find(id);
+        return dao.findById(id);
     }
 
     @Override
-    public boolean del(int id) {
-        return dao.del(id);
+    public void del(int id) {
+        dao.del(id);
     }
 
     @Override
-    public boolean update(User user) {
-        return dao.update(user);
+    public void update(User user) {
+        dao.update(user);
+    }
+
+    @Override
+    public List<User> findUserByManyCondition(String uId, String uBankId, String uName) throws SQLException {
+        return dao.findUserByManyCondition(uId, uBankId, uName);
     }
 }

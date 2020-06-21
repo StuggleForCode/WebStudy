@@ -6,7 +6,7 @@ public class User {
     private  int  uId;
     private String uName;
     private String uPassword;
-    private Date uBirthday;
+    private String uBirthday;
     private String uAddress;
     private String uBankId;
 
@@ -34,11 +34,11 @@ public class User {
         this.uPassword = uPassword;
     }
 
-    public Date getuBirthday() {
+    public String getuBirthday() {
         return uBirthday;
     }
 
-    public void setuBirthday(Date uBirthday) {
+    public void setuBirthday(String uBirthday) {
         this.uBirthday = uBirthday;
     }
 

@@ -2,7 +2,11 @@ package cn.itcast.jdbc.Dao.Impl;
 
 import cn.itcast.jdbc.Dao.UsersDao;
 import cn.itcast.jdbc.domain.User;
-import cn.itcast.jdbc.utils.JDBCUtils;
+import cn.itcast.jdbc.utils.DataSourceUtils;
+import com.mchange.v1.util.ArrayUtils;
+import org.apache.commons.dbutils.QueryRunner;
+import org.apache.commons.dbutils.handlers.BeanHandler;
+import org.apache.commons.dbutils.handlers.BeanListHandler;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -13,131 +17,78 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UsersDaoImpl implements UsersDao {
-    private Connection conn = null;
-    private Statement stmt = null;
-    private ResultSet rs = null;
-    @Override
-    public boolean insertUser(User user) {
-        try {
-            conn = JDBCUtils.getConnection();
-            stmt = conn.createStatement();
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-            String birthday = sdf.format(user.getuBirthday());
-            String sql = "INSERT INTO users(Uid, Uname, Upassword, Ubirthday, Uaddress, UBankId)" +
-                    "VALUES(" + user.getuId() + ",'" + user.getuName() + "','" + user.getuPassword() + "','" + birthday
-                    +"','" + user.getuAddress() + "','" + user.getuBankId() + "')";
-           // System.out.println(sql);
-            int num = stmt.executeUpdate(sql);
-            if(num > 0) return true;
-            return false;
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } finally {
-            JDBCUtils.release(rs, stmt,conn);
-        }
 
-        return false;
+    @Override
+    public void insertUser(User user) throws SQLException {
+        String sql = "INSERT INTO users(Uname, Upassword, Ubirthday, Uaddress, UBankId)" +
+                "VALUES(" + "'" + user.getuName() + "','" + user.getuPassword() + "','" + user.getuBirthday()
+                +"','" + user.getuAddress() + "','" + user.getuBankId() + "')";
+        QueryRunner runner = new QueryRunner(DataSourceUtils.getDataSource());
+        runner.update(sql);
     }
 
     @Override
-    public List<User> findAll() {
-        List<User> list = new ArrayList<User>();
+    public List<User> findAll() throws SQLException {
+        String sql = "select * from users";
+        QueryRunner runner = new QueryRunner(DataSourceUtils.getDataSource());
+        return runner.query(sql, new BeanListHandler<User>(User.class));
+    }
+
+    @Override
+    public User findById(int id) {
+        String sql = "Select * from users where Uid = ?";
+        QueryRunner runner = new QueryRunner(DataSourceUtils.getDataSource());
         try {
-            conn = JDBCUtils.getConnection();
-            stmt = conn.createStatement();
-            String sql = "Select * from users";
-            rs = stmt.executeQuery(sql);
-            //处理结果集
-            while (rs.next()){
-                User user = new User();
-                user.setuId(rs.getInt("Uid"));
-                user.setuName(rs.getString("Uname"));
-                user.setuPassword(rs.getString("Upassword"));
-                user.setuBirthday(rs.getDate("Ubirthday"));
-                user.setuAddress(rs.getString("Uaddress"));
-                user.setuBankId(rs.getString("UbankId"));
-                list.add(user);
-            }
-            return list;
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } finally {
-            JDBCUtils.release(rs, stmt, conn);
+            return runner.query(sql, new BeanHandler<User>(User.class), id);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
         }
         return null;
     }
 
     @Override
-    public User find(int id) {
+    public void del(int id) {
+        QueryRunner runner = new QueryRunner(DataSourceUtils.getDataSource());
+        String sql = "DELETE FROM users WHERE Uid = ?";
         try {
-            conn = JDBCUtils.getConnection();
-            stmt = conn.createStatement();
-            String sql = "Select * from users where Uid = " + id;
-            rs = stmt .executeQuery(sql);
-            while (rs.next()){
-                User user = new User();
-                user.setuId(rs.getInt("Uid"));
-                user.setuName(rs.getString("Uname"));
-                user.setuPassword(rs.getString("Upassword"));
-                user.setuBirthday(rs.getDate("Ubirthday"));
-                user.setuAddress(rs.getString("Uaddress"));
-                user.setuBankId(rs.getString("UbankId"));
-                return user;
-            }
-            return null;
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } finally {
-            JDBCUtils.release(rs, stmt, conn);
+            runner.update(sql, id);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
         }
-        return null;
     }
 
     @Override
-    public boolean del(int id) {
+    public void update(User user) {
+        String sql = "UPDATE users set Uname = '" + user.getuName() + "', Upassword= '" + user.getuPassword() + "', Ubirthday= '" + user.getuBirthday()
+                +"', Uaddress= '" + user.getuAddress() + "',UBankId= '" + user.getuBankId() +"' " + "WHERE Uid = " + user.getuId();
+        //System.out.println(sql);
+        QueryRunner runner = new QueryRunner(DataSourceUtils.getDataSource());
         try {
-            conn = JDBCUtils.getConnection();
-            stmt = conn.createStatement();
-            String sql = "DELETE FROM users WHERE Uid = " + id;
-            int num = stmt.executeUpdate(sql);
-            if(num > 0) return true;
-            return false;
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } finally {
-            JDBCUtils.release(rs, stmt, conn);
+            runner.update(sql);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
         }
-        return false;
     }
 
     @Override
-    public boolean update(User user) {
-        try {
-            conn = JDBCUtils.getConnection();
-            stmt = conn.createStatement();
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-            String birthday = sdf.format(user.getuBirthday());
-            String sql = "UPDATE users set Uname = '" + user.getuName() + "', Upassword= '" + user.getuPassword() + "', Ubirthday= '" + birthday
-                    +"', Uaddress= '" + user.getuAddress() + "',UBankId= '" + user.getuBankId() +"' " + "WHERE Uid = " + user.getuId();
-            //System.out.println(sql);
-            int num = stmt.executeUpdate(sql);
-            if(num > 0) return true;
-            return false;
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } finally {
-            JDBCUtils.release(rs, stmt, conn);
+    public List<User> findUserByManyCondition(String uId, String uBankId, String uName) throws SQLException {
+        List<Object> list = new ArrayList<Object>();
+        QueryRunner runner = new QueryRunner(DataSourceUtils.getDataSource());
+        String sql = "select * from users where 1 = 1 "; //1 = 1 永为真，构建动态sql
+        if(uId != null && uId.trim().length()>0){
+            sql += " and uId =  ?";
+            list.add(uId);
         }
-        return false;
+        if(uName != null && uName.trim().length()>0){
+            sql += " and uName = ?";
+            list.add(uName);
+        }
+        if(uBankId != null && uBankId.trim().length()>0){
+            sql += "  and uBankId = ?";
+            list.add(uBankId);
+        }
+        System.out.println(sql);
+        Object[] params = list.toArray();
+        return runner.query(sql, new BeanListHandler<>(User.class), params);
     }
 }
