@@ -21,7 +21,7 @@ public class UserServiceImpl implements UserService {
         }else{
             //2.注册用户
             userDao.regist(user);
-            MailUtils.sendMail("82181843@qq.com","黑马旅游网欢迎您的到来，<a href='http://localhost:8080/user/acitve?code="+user.getCode()+"'>点击激活</a>","黑马程序员，激活邮件");
+            MailUtils.sendMail(user.getEmail(),"黑马旅游网欢迎您的到来，<a href='http://localhost:8080/user/acitve?code="+user.getCode()+"'>点击激活</a>","黑马程序员，激活邮件");
             info.setFlag(true);
         }
         return info;

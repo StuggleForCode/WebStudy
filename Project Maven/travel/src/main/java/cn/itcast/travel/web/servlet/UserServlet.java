@@ -73,6 +73,7 @@ public class UserServlet extends BaseServlet {
 
         //返回给我们一个完整的用户对象
         User loginUser = userService.login(user);
+        System.out.println(loginUser);
 
         ResultInfo info = new ResultInfo();
         if(loginUser!=null) {
@@ -107,8 +108,6 @@ public class UserServlet extends BaseServlet {
     public void exit(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, InvocationTargetException, IllegalAccessException {
         //获取登录页面请求时的参数
         request.getSession().removeAttribute("user");
-
-
     }
 
     public void autoLogin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, InvocationTargetException, IllegalAccessException {

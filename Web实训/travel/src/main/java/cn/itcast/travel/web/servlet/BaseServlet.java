@@ -19,7 +19,7 @@ public class BaseServlet extends HttpServlet {
         //反射
         //uri = /user/regist;
         String methodName = uri.substring(uri.lastIndexOf("/") + 1);
-
+        System.out.println(methodName);
         try {
             //获取方法：regist
             //this.getClass():获取内存中的class字符码文件，

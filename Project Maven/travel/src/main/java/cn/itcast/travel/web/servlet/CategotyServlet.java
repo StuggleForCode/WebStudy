@@ -30,9 +30,8 @@ public class CategotyServlet extends BaseServlet {
     CategoryService categoryService = new CategoryServiceImpl();
 
     public void findCategorys(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, InvocationTargetException, IllegalAccessException {
-
-
         List<Category> list = new ArrayList<>();
+        System.out.println("调用 findCategorys 方法");
         //首先从redis里查询，看是能查到数据，如果能查到，就不从数据库里查询了
         try {
             Jedis jedis = JedisUtil.getJedis();
@@ -57,6 +56,7 @@ public class CategotyServlet extends BaseServlet {
             try {
                 System.out.println("从数据库中查询");
                 list = categoryService.findAll();
+                System.out.println(list);
                 Jedis jedis = JedisUtil.getJedis();
                 for (int i = 0; i < list.size(); i++) {
                     Category category = list.get(i);

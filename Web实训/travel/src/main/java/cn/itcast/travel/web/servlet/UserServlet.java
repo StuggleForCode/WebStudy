@@ -42,6 +42,8 @@ public class UserServlet extends BaseServlet {
             //把map里的接收到的表单项的值，封装到user里面去
             BeanUtils.populate(user, map);
 
+            System.out.println(user);
+
             ResultInfo info = userService.regist(user);
 
             //把info变成json数据
@@ -66,35 +68,46 @@ public class UserServlet extends BaseServlet {
     }
 
     public void login(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, InvocationTargetException, IllegalAccessException {
-        //获取登录页面请求时的参数
-        Map<String, String[]> map = request.getParameterMap();
-        User user = new User();
-        BeanUtils.populate(user,map);
-
-        //返回给我们一个完整的用户对象
-        User loginUser = userService.login(user);
-
+        String check = request.getParameter("check");
+        HttpSession session = request.getSession();
+        //这个是我们后台CheckCodeServlet生成的
+        String checkcode_server = (String) session.getAttribute("CHECKCODE_SERVER");
+        session.removeAttribute("CHECKCODE_SERVER");
         ResultInfo info = new ResultInfo();
-        if(loginUser!=null) {
-            HttpSession session = request.getSession();
-            session.setAttribute("user", loginUser);
+        if (check.equalsIgnoreCase(checkcode_server)) {
+            //获取登录页面请求时的参数
+            Map<String, String[]> map = request.getParameterMap();
+            User user = new User();
+            BeanUtils.populate(user,map);
 
-            Cookie cook1 = new Cookie("username", URLEncoder.encode(loginUser.getUsername(),"utf-8"));
-            Cookie cook2 = new Cookie("password", URLEncoder.encode(loginUser.getPassword(),"utf-8"));
-            cook1.setMaxAge(360*24*60);
-            cook2.setMaxAge(360*24*60);
-            cook1.setPath("/");
-            cook2.setPath("/");
-            response.addCookie(cook1);
-            response.addCookie(cook2);
+            //返回给我们一个完整的用户对象
+            User loginUser = userService.login(user);
 
-            info.setFlag(true);
+            System.out.println(loginUser);
+
+
+            if(loginUser!=null) {
+                session.setAttribute("user", loginUser);
+
+                Cookie cook1 = new Cookie("username", URLEncoder.encode(loginUser.getUsername(),"utf-8"));
+                Cookie cook2 = new Cookie("password", URLEncoder.encode(loginUser.getPassword(),"utf-8"));
+                cook1.setMaxAge(60*60*24);
+                cook2.setMaxAge(60*60*24);
+                cook1.setPath("/");
+                cook2.setPath("/");
+                response.addCookie(cook1);
+                response.addCookie(cook2);
+                info.setFlag(true);
+            }else{
+                info.setFlag(false);
+                info.setErrorMsg("用户名或密码错误");
+            }
+
         }else{
             info.setFlag(false);
-            info.setErrorMsg("用户名或密码错误");
+            info.setErrorMsg("验证码输入错误！");
         }
         writeValue(response,info);
-
     }
 
     public void getUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, InvocationTargetException, IllegalAccessException {
@@ -107,8 +120,6 @@ public class UserServlet extends BaseServlet {
     public void exit(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, InvocationTargetException, IllegalAccessException {
         //获取登录页面请求时的参数
         request.getSession().removeAttribute("user");
-
-
     }
 
     public void autoLogin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, InvocationTargetException, IllegalAccessException {

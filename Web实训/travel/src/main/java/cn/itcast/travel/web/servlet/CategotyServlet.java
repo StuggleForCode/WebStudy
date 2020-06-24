@@ -31,6 +31,7 @@ public class CategotyServlet extends BaseServlet {
 
     public void findCategorys(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, InvocationTargetException, IllegalAccessException {
 
+//        System.out.println("调用 findCategorys");
 
         List<Category> list = new ArrayList<>();
         //首先从redis里查询，看是能查到数据，如果能查到，就不从数据库里查询了
@@ -56,16 +57,16 @@ public class CategotyServlet extends BaseServlet {
         if(list.size()<=0) {
             try {
                 System.out.println("从数据库中查询");
-                list = categoryService.findAll();
-                Jedis jedis = JedisUtil.getJedis();
-                for (int i = 0; i < list.size(); i++) {
-                    Category category = list.get(i);
-                    //存储的是键值对的形式，一个键，对应很多个值
-                    //"categorys"：键
-                    //category.getCid()：权值，访问的时候，优先访问到
-                    //权值就是索引，一个编号，编号越小，访问的时候越优先
-                    //category.getCname(),是我们真正要存储到reids里的值
-                    jedis.zadd("categorys", category.getCid(), category.getCname());
+                    list = categoryService.findAll();
+                    Jedis jedis = JedisUtil.getJedis();
+                    for (int i = 0; i < list.size(); i++) {
+                        Category category = list.get(i);
+                        //存储的是键值对的形式，一个键，对应很多个值
+                        //"categorys"：键
+                        //category.getCid()：权值，访问的时候，优先访问到
+                        //权值就是索引，一个编号，编号越小，访问的时候越优先
+                        //category.getCname(),是我们真正要存储到reids里的值
+                        jedis.zadd("categorys", category.getCid(), category.getCname());
 
                 }
             } catch (Exception e) {

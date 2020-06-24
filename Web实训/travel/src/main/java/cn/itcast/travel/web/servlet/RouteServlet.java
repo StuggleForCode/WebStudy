@@ -1,25 +1,17 @@
 package cn.itcast.travel.web.servlet;
 
-import cn.itcast.travel.domain.Category;
 import cn.itcast.travel.domain.PageBean;
 import cn.itcast.travel.domain.Route;
 import cn.itcast.travel.domain.User;
-import cn.itcast.travel.service.CategoryService;
-import cn.itcast.travel.service.impl.CategoryServiceImpl;
-import cn.itcast.travel.util.JedisUtil;
-import redis.clients.jedis.Jedis;
-import redis.clients.jedis.Tuple;
+import cn.itcast.travel.service.RouteService;
+import cn.itcast.travel.service.impl.RouteServiceImpl;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
 
 @WebServlet("/route/*")
 public class RouteServlet extends BaseServlet {
@@ -90,12 +82,7 @@ public class RouteServlet extends BaseServlet {
     public void order(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, InvocationTargetException, IllegalAccessException {
         String currentPageStr = request.getParameter("currentPage");
         int currentPage = Integer.parseInt(currentPageStr);
-
-
-
-
         int pageSize = 8;
-
         PageBean pb = routeService.findFavOrderPage(currentPage,pageSize);
         System.out.println(pb);
         writeValue(response,pb);

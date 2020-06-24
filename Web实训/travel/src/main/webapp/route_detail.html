@@ -62,7 +62,7 @@
 
             });
 
-            $.post("route/favoriteCount",{rid:rid},function (count) {
+            $.post("route/favoriteCount",{rid:rid}, function (count) {
                 $("#favCount").html("已收藏"+count+"次");
             });
         })

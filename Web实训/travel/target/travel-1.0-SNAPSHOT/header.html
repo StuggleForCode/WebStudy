@@ -13,6 +13,7 @@
             <li><a href="favoriterank.html">收藏排行榜</a></li>
      */
     $(function () {
+        console.log("执行header.html")
         $.post("category/findCategorys", function (data) {
             var categorys = '<li class="nav-active"><a href="index.html">首页</a></li>';
 
@@ -29,7 +30,14 @@
             }
         });
         $.post("user/getUser", function (user) {
-            $("#span_user").html("欢迎回来，" + user.name);
+            if(user != null){
+                $("#span_user").html("欢迎回来，" + user.name);
+            }else{
+                $("#span_user").html("");
+                $("#span_collect").html("");
+                $("#btn_exit").html("");
+            }
+
         });
 
         $("#btn_exit").click(function () {
@@ -60,9 +68,8 @@
         </div>
         <!-- 登录状态  -->
         <div class="login">
-
             <span id="span_user">欢迎回来，admin</span>
-            <a href="myfavorite.html" class="collection">我的收藏</a>
+            <a href="myfavorite.html" class="collection" id="span_collect">我的收藏</a>
             <a id="btn_exit" href="javascript:void(0);">退出</a>
         </div>
     </div>

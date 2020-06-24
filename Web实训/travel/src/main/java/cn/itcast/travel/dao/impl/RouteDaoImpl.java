@@ -63,7 +63,6 @@ public class RouteDaoImpl implements RouteDao {
     public Route findOneByRid(String rid) {
         return jt.queryForObject("select * from tab_route where rid = ?",
                 new BeanPropertyRowMapper<Route>(Route.class),rid);
-
     }
 
     @Override

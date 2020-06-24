@@ -35,7 +35,7 @@ public class CheckCodeServlet extends HttpServlet {
 		int width = 80;
 		int height = 30;
 		BufferedImage image = new BufferedImage(width,height,BufferedImage.TYPE_INT_RGB);
-		
+
 		//获取画笔
 		Graphics g = image.getGraphics();
 		//设置画笔颜色为灰色
@@ -59,9 +59,9 @@ public class CheckCodeServlet extends HttpServlet {
 		//参数一：图片对象
 		//参数二：图片的格式，如PNG,JPG,GIF
 		//参数三：图片输出到哪里去
-//		ImageIO.write(image,"PNG",response.getOutputStream());
-		JPEGImageEncoder encoder = JPEGCodec.createJPEGEncoder(response.getOutputStream());
-		encoder.encode(image);
+		ImageIO.write(image,"PNG",response.getOutputStream());
+//		JPEGImageEncoder encoder = JPEGCodec.createJPEGEncoder(response.getOutputStream());
+//		encoder.encode(image);
 	}
 	/**
 	 * 产生4位随机字符串 

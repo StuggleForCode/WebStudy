@@ -1,5 +1,8 @@
 package cn.itcast.travel.web.servlet;
 
+import com.sun.image.codec.jpeg.JPEGCodec;
+import com.sun.image.codec.jpeg.JPEGImageEncoder;
+
 import javax.imageio.ImageIO;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -54,7 +57,9 @@ public class CheckCodeServlet extends HttpServlet {
 		//参数一：图片对象
 		//参数二：图片的格式，如PNG,JPG,GIF
 		//参数三：图片输出到哪里去
-		ImageIO.write(image,"PNG",response.getOutputStream());
+//		ImageIO.write(image,"PNG",response.getOutputStream());
+		JPEGImageEncoder encoder = JPEGCodec.createJPEGEncoder(response.getOutputStream());
+		encoder.encode(image);
 	}
 	/**
 	 * 产生4位随机字符串 
