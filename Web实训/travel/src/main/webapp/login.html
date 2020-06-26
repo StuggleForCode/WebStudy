@@ -21,11 +21,7 @@
 	<script>
 		$(function () {
 			$("#btn_login").click(function () {
-				var auto_login = "";
-				if(document.getElementById("auto_loginCheckbox").checked){
-					auto_login = "true";
-				}
-				$.post("user/login",$("#loginForm").serialize(),{auto_login:auto_login},function (data) {
+				$.post("user/login",$("#loginForm").serialize(),function (data) {
 					if(data.flag){
 					    location.href = 'index.html';
 					}else{
@@ -72,7 +68,7 @@
 			<div class="submit_btn">
         				<button id="btn_login" type="button">登录</button>
         				<div class="auto_login">
-        					<input type="checkbox" name="" class="checkbox" id = "auto_loginCheckbox">
+        					<input type="checkbox" name="auto_loginCheckbox" class="checkbox">
         					<span>自动登录</span>
         				</div>        				
         			</div>        			       		

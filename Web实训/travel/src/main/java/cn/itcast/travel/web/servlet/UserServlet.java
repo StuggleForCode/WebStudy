@@ -74,6 +74,8 @@ public class UserServlet extends BaseServlet {
         String checkcode_server = (String) session.getAttribute("CHECKCODE_SERVER");
         session.removeAttribute("CHECKCODE_SERVER");
         ResultInfo info = new ResultInfo();
+      //  System.out.println("login_check: " + check);
+        //System.out.println("login_checkcode_server :" + checkcode_server);
         if (check.equalsIgnoreCase(checkcode_server)) {
             //获取登录页面请求时的参数
             Map<String, String[]> map = request.getParameterMap();
@@ -83,13 +85,14 @@ public class UserServlet extends BaseServlet {
             //返回给我们一个完整的用户对象
             User loginUser = userService.login(user);
 
-            System.out.println(loginUser);
+           // System.out.println("login_loginUser: "+loginUser);
 
 
             if(loginUser!=null) {
                 session.setAttribute("user", loginUser);
-                String auto_login = request.getParameter("auto_login");
-                if(auto_login == "true"){
+                String auto_login = request.getParameter("auto_loginCheckbox");
+                System.out.println("auto_login：" +  auto_login);
+                if("on".equalsIgnoreCase(auto_login)){
                     Cookie cook1 = new Cookie("HeiMaUsername", URLEncoder.encode(loginUser.getUsername(),"utf-8"));
                     Cookie cook2 = new Cookie("HeiMaPassword", URLEncoder.encode(loginUser.getPassword(),"utf-8"));
                     cook1.setMaxAge(60*60*24);
@@ -115,8 +118,8 @@ public class UserServlet extends BaseServlet {
     public void getUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, InvocationTargetException, IllegalAccessException {
         //获取登录页面请求时的参数
         Object user = request.getSession().getAttribute("user");
+        //System.out.println("getUser： "+ user);
         writeValue(response,user);
-
     }
 
     public void exit(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, InvocationTargetException, IllegalAccessException {
@@ -149,14 +152,17 @@ public class UserServlet extends BaseServlet {
         User user = new User();
         user.setUsername(username);
         user.setPassword(password);
-
-        User loginUser = userService.login(user);
+       // System.out.println(user);
+        if(user.getUsername() == "" || user.getUsername() == null){
+            writeValue(response,null);
+        }else{
+            User loginUser = userService.login(user);
 //        System.out.println(loginUser);
-        HttpSession session = request.getSession();
-        session.setAttribute("user", loginUser);
-        System.out.println(loginUser);
-        writeValue(response,loginUser);
-
+            HttpSession session = request.getSession();
+            session.setAttribute("user", loginUser);
+            System.out.println("auto_login_loginUser:" + loginUser);
+            writeValue(response,loginUser);
+        }
     }
 
 }

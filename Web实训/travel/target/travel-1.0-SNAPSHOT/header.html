@@ -11,18 +11,34 @@
             categorys += '<li><a href="favoriterank.html">收藏排行榜</a></li>';
             $("#ul_category").html(categorys)
         })
-        $.post("user/getUser", function (user) {
-            if(user != null){
-                $("#span_user").html("欢迎回来，" + user.name);
-                $("#span_collect").html("我的收藏");
-                $("#btn_exit").html("退出");
-            }
-        });
         $.post("user/autoLogin", function (user) {
             if (user != null) {
                 $("#span_user").html("欢迎回来，" + user.name);
                 $("#span_collect").html("我的收藏");
-                $("#btn_exit").html("退出");
+                $("#span_exit").html("退出");
+                $("#span_login").html("");
+                $("#span_register").html("");
+            }else{
+                $("#span_user").html("");
+                $("#span_collect").html("");
+                $("#span_exit").html("");
+                $("#span_login").html("登陆");
+                $("#span_register").html("注册");
+            }
+        });
+        $.post("user/getUser", function (user) {
+            if(user != null){
+                $("#span_user").html("欢迎回来，" + user.name);
+                $("#span_collect").html("我的收藏");
+                $("#span_exit").html("退出");
+                $("#span_login").html("");
+                $("#span_register").html("");
+            }else{
+                $("#span_user").html("");
+                $("#span_collect").html("");
+                $("#span_exit").html("");
+                $("#span_login").html("登陆");
+                $("#span_register").html("注册");
             }
         });
 
@@ -49,14 +65,14 @@
     <div class="shortcut">
         <!-- 未登录状态  -->
         <div class="login_out">
-            <a href="login.html">登录</a>
-            <a href="register.html">注册</a>
+            <a href="login.html"><span id = "span_login"></span></a>
+            <a href="register.html"><span id = "span_register"></span></a>
         </div>
         <!-- 登录状态  -->
         <div class="login">
             <span id="span_user"></span>
-            <a href="myfavorite.html" class="collection" id="span_collect"></a>
-            <a id="btn_exit" href="javascript:void(0);"></a>
+            <a href="myfavorite.html" class="collection"><span id="span_collect"></span></a>
+            <a id="btn_exit" href="javascript:void(0);"><span id="span_exit"></span></a>
         </div>
     </div>
     <div class="header_wrap">
