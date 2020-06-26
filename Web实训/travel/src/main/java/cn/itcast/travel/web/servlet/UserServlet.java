@@ -1,5 +1,6 @@
 package cn.itcast.travel.web.servlet;
 
+import cn.itcast.travel.domain.PageBean;
 import cn.itcast.travel.domain.ResultInfo;
 import cn.itcast.travel.domain.User;
 import cn.itcast.travel.service.UserService;
@@ -160,9 +161,23 @@ public class UserServlet extends BaseServlet {
 //        System.out.println(loginUser);
             HttpSession session = request.getSession();
             session.setAttribute("user", loginUser);
-            System.out.println("auto_login_loginUser:" + loginUser);
+           // System.out.println("auto_login_loginUser:" + loginUser);
             writeValue(response,loginUser);
         }
+    }
+
+    public void myFavorite(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, InvocationTargetException, IllegalAccessException {
+
+        System.out.println("myFavorite: 到我了");
+
+        String currentPageStr = request.getParameter("currentPage");
+        int currentPage = Integer.parseInt(currentPageStr);
+        String uidStr = request.getParameter("uid");
+        int uid = Integer.parseInt(uidStr);
+        int pageSize = 12;
+        PageBean pb = userService.findUserFavPage(uid, currentPage, pageSize);
+        System.out.println("myFiavorite_pb: " + pb);
+        writeValue(response,pb);
     }
 
 }

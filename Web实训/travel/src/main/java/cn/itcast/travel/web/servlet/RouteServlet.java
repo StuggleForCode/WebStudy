@@ -82,10 +82,16 @@ public class RouteServlet extends BaseServlet {
     public void order(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, InvocationTargetException, IllegalAccessException {
         String currentPageStr = request.getParameter("currentPage");
         int currentPage = Integer.parseInt(currentPageStr);
-        int pageSize = 8;
+        String hot = request.getParameter("hot");
+        int pageSize;
+        if(hot != null){
+            pageSize = 5;
+        }else{
+            pageSize = 8;
+        }
+
         PageBean pb = routeService.findFavOrderPage(currentPage,pageSize);
         System.out.println(pb);
         writeValue(response,pb);
     }
-
 }

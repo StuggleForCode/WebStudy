@@ -18,8 +18,28 @@
             //直接获取出来的参数 是乱码，需要转码
             rname = window.decodeURIComponent(rname);
             load(cid, 1,rname);
+            $.post("route/order", {currentPage: 1, hot: "hot"}, function (pb) {
+                var hotRoutes = '';
+                for(var i = 0; i < pb.list.length; i++){
+                    hotRoutes += '<li>\n';
+                    hotRoutes += '  <div class="left"><a href="route_detail.html?rid='+pb.list[i].rid+'"><img src="' + pb.list[i].rimage + '" alt=""></a></div>\n'+
+                        '           <div class="right">\n'+
+                        '               <p><a href="route_detail.html?rid='+pb.list[i].rid+'">'+pb.list[i].rname+'</a></p>\n'+
+                        '               <p>网付价<span>&yen;<span>'+pb.list[i].price +'</span>起</span></p>\n'+
+                        '           </div>\n'+
+                        '      </li>\n';
+                }
+                $("#ul_hot").html(hotRoutes);
+            });
         })
-
+        // <li>
+        // <div class="left"><img src="images/04-search_09.jpg" alt=""></div>
+        //     <div class="right">
+        //     <p>清远新银盏温泉度假村酒店/自由行套...</p>
+        // <p>网付价<span>&yen;<span>899</span>起</span>
+        // </p>
+        // </div>
+        // </li>
         /*
         <li><a href="">首页</a></li>
         <li class="threeword"><a href="#">上一页</a></li>
@@ -288,47 +308,9 @@
                     <div class="hot">HOT</div>
                     <span>热门推荐</span>
                 </div>
-                <ul>
-                    <li>
-                        <div class="left"><img src="images/04-search_09.jpg" alt=""></div>
-                        <div class="right">
-                            <p>清远新银盏温泉度假村酒店/自由行套...</p>
-                            <p>网付价<span>&yen;<span>899</span>起</span>
-                            </p>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="left"><img src="images/04-search_09.jpg" alt=""></div>
-                        <div class="right">
-                            <p>清远新银盏温泉度假村酒店/自由行套...</p>
-                            <p>网付价<span>&yen;<span>899</span>起</span>
-                            </p>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="left"><img src="images/04-search_09.jpg" alt=""></div>
-                        <div class="right">
-                            <p>清远新银盏温泉度假村酒店/自由行套...</p>
-                            <p>网付价<span>&yen;<span>899</span>起</span>
-                            </p>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="left"><img src="images/04-search_09.jpg" alt=""></div>
-                        <div class="right">
-                            <p>清远新银盏温泉度假村酒店/自由行套...</p>
-                            <p>网付价<span>&yen;<span>899</span>起</span>
-                            </p>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="left"><img src="images/04-search_09.jpg" alt=""></div>
-                        <div class="right">
-                            <p>清远新银盏温泉度假村酒店/自由行套...</p>
-                            <p>网付价<span>&yen;<span>899</span>起</span>
-                            </p>
-                        </div>
-                    </li>
+                <ul id="ul_hot">
+
+
                 </ul>
             </div>
         </div>

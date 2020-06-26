@@ -1,11 +1,14 @@
 package cn.itcast.travel.dao.impl;
 
 import cn.itcast.travel.dao.UserDao;
+import cn.itcast.travel.domain.Route;
 import cn.itcast.travel.domain.User;
 import cn.itcast.travel.util.JDBCUtils;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+
+import java.util.List;
 
 public class UserDaoImpl implements UserDao {
     //拿到JdbcTemplate对象，它可以方便的操作数据用的
@@ -63,5 +66,17 @@ public class UserDaoImpl implements UserDao {
 
         }
         return null;
+    }
+
+    @Override
+    public int findUserFavPageCount(int uid) {
+        return jt.queryForObject("SELECT COUNT(*) FROM tab_favorite WHERE uid = ?", Integer.class,uid);
+    }
+
+    @Override
+    public List<Route> findUserFavPage(int uid, int currentPage, int pageSize) {
+        int start = (currentPage-1)*pageSize;
+        String sql = "SELECT * FROM tab_route, (SELECT rid FROM tab_favorite WHERE uid = ?) temp WHERE tab_route.rid = temp.rid LIMIT ?, ?";
+        return jt.query(sql, new BeanPropertyRowMapper<Route>(Route.class), uid, start, pageSize);
     }
 }

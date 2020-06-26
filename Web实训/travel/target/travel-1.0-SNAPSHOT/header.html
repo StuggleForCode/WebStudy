@@ -11,6 +11,7 @@
             categorys += '<li><a href="favoriterank.html">收藏排行榜</a></li>';
             $("#ul_category").html(categorys)
         })
+
         $.post("user/autoLogin", function (user) {
             if (user != null) {
                 $("#span_user").html("欢迎回来，" + user.name);
@@ -48,6 +49,12 @@
             });
         });
 
+        $("#btn_favorite").click(function () {
+            $.post("user/getUser", function (user) {
+                location.href = 'myfavorite.html?uid=' + user.uid;
+            })
+        });
+
         $("#search_btn").click(function () {
             var cid = getParameter("cid");
 
@@ -71,7 +78,7 @@
         <!-- 登录状态  -->
         <div class="login">
             <span id="span_user"></span>
-            <a href="myfavorite.html" class="collection"><span id="span_collect"></span></a>
+            <a id="btn_favorite" href="javascript:void(0);" class="collection"><span id="span_collect"></span></a>
             <a id="btn_exit" href="javascript:void(0);"><span id="span_exit"></span></a>
         </div>
     </div>
