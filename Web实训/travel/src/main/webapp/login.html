@@ -21,11 +21,16 @@
 	<script>
 		$(function () {
 			$("#btn_login").click(function () {
-				$.post("user/login",$("#loginForm").serialize(),function (data) {
+				var auto_login = "";
+				if(document.getElementById("auto_loginCheckbox").checked){
+					auto_login = "true";
+				}
+				$.post("user/login",$("#loginForm").serialize(),{auto_login:auto_login},function (data) {
 					if(data.flag){
 					    location.href = 'index.html';
 					}else{
 					    $("#errorMsg").html(data.errorMsg);
+						$("#img_check").attr("src","checkCode?"+new Date().getTime());
 					}
                 })
             });
@@ -56,7 +61,7 @@
         			<input name="password" type="text" placeholder="请输入密码" autocomplete="off">
         			<div class="verify">
 					<input name="check" type="text" placeholder="请输入验证码" autocomplete="off">
-					<span><img src="checkCode" alt="" onclick="changeCheckCode(this)"></span>
+					<span><img src="checkCode" alt="" onclick="changeCheckCode(this)" id = "img_check"></span>
 					<script type="text/javascript">
 						//图片点击事件
 						function changeCheckCode(img) {
@@ -67,12 +72,12 @@
 			<div class="submit_btn">
         				<button id="btn_login" type="button">登录</button>
         				<div class="auto_login">
-        					<input type="checkbox" name="" class="checkbox">
+        					<input type="checkbox" name="" class="checkbox" id = "auto_loginCheckbox">
         					<span>自动登录</span>
         				</div>        				
         			</div>        			       		
         		</form>
-        		<div class="reg">没有账户？<a href="javascript:;">立即注册</a></div>
+        		<div class="reg">没有账户？<a href="register.html">立即注册</a></div>
         	</div>
         </div>
     </section>

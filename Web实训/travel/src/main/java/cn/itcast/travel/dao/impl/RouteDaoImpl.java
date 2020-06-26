@@ -103,10 +103,10 @@ public class RouteDaoImpl implements RouteDao {
     }
 
     @Override
-    public int findFavOrderPageCount(int currentPage, int pageSize) {
+    public int findFavOrderPageCount() {
         // return jt.queryForObject("select ")
         //代码未完成
-        return jt.queryForObject("SELECT COUNT(*) FROM tab_favorite",Integer.class);
+        return jt.queryForObject("SELECT COUNT(*) FROM (SELECT COUNT(*) FROM tab_favorite GROUP  BY rid) AS temp\n",Integer.class);
     }
 
     @Override

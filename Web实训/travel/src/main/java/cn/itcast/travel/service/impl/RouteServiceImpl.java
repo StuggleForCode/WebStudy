@@ -76,10 +76,11 @@ public class RouteServiceImpl implements RouteService {
         pb.setCurrentPage(currentPage);
         pb.setPageSize(pageSize);
 
-        int totalCount = routeDao.findFavOrderPageCount(currentPage,pageSize);
+        int totalCount = routeDao.findFavOrderPageCount();
         pb.setTotalCount(totalCount);
         pb.setTotalPage(totalCount%pageSize==0?totalCount/pageSize:totalCount/pageSize+1);
         pb.setList(routeDao.findFavorderPage(currentPage,pageSize));
+        System.out.println(pb);
 
         return pb;
     }

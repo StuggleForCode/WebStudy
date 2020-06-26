@@ -88,15 +88,17 @@ public class UserServlet extends BaseServlet {
 
             if(loginUser!=null) {
                 session.setAttribute("user", loginUser);
-
-                Cookie cook1 = new Cookie("username", URLEncoder.encode(loginUser.getUsername(),"utf-8"));
-                Cookie cook2 = new Cookie("password", URLEncoder.encode(loginUser.getPassword(),"utf-8"));
-                cook1.setMaxAge(60*60*24);
-                cook2.setMaxAge(60*60*24);
-                cook1.setPath("/");
-                cook2.setPath("/");
-                response.addCookie(cook1);
-                response.addCookie(cook2);
+                String auto_login = request.getParameter("auto_login");
+                if(auto_login == "true"){
+                    Cookie cook1 = new Cookie("HeiMaUsername", URLEncoder.encode(loginUser.getUsername(),"utf-8"));
+                    Cookie cook2 = new Cookie("HeiMaPassword", URLEncoder.encode(loginUser.getPassword(),"utf-8"));
+                    cook1.setMaxAge(60*60*24);
+                    cook2.setMaxAge(60*60*24);
+                    cook1.setPath("/");
+                    cook2.setPath("/");
+                    response.addCookie(cook1);
+                    response.addCookie(cook2);
+                }
                 info.setFlag(true);
             }else{
                 info.setFlag(false);
@@ -120,6 +122,14 @@ public class UserServlet extends BaseServlet {
     public void exit(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, InvocationTargetException, IllegalAccessException {
         //获取登录页面请求时的参数
         request.getSession().removeAttribute("user");
+        Cookie killHeiMaUsername = new Cookie("HeiMaUsername", null);
+        Cookie killHeiMaPassword = new Cookie("HeiMaPassword", null);
+        killHeiMaUsername.setMaxAge(0);
+        killHeiMaUsername.setPath("/");
+        response.addCookie(killHeiMaUsername);
+        killHeiMaPassword.setMaxAge(0);
+        killHeiMaPassword.setPath("/");
+        response.addCookie(killHeiMaPassword);
     }
 
     public void autoLogin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, InvocationTargetException, IllegalAccessException {
@@ -129,23 +139,23 @@ public class UserServlet extends BaseServlet {
         String password = "";
         for (Cookie cookie : cookies) {
             String name = cookie.getName();
-            if(name.equalsIgnoreCase("username")){
+            if(name.equalsIgnoreCase("HeiMaUsername")){
                 username = URLDecoder.decode(cookie.getValue(),"utf-8");
             }
-            if(name.equalsIgnoreCase("password")){
+            if(name.equalsIgnoreCase("HeiMaPassword")){
                 password = URLDecoder.decode(cookie.getValue(),"utf-8");
             }
         }
-
         User user = new User();
         user.setUsername(username);
         user.setPassword(password);
 
         User loginUser = userService.login(user);
-
-
+//        System.out.println(loginUser);
+        HttpSession session = request.getSession();
+        session.setAttribute("user", loginUser);
+        System.out.println(loginUser);
         writeValue(response,loginUser);
-
 
     }
 

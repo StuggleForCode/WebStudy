@@ -1,19 +1,6 @@
 <!-- 头部 start -->
 <script>
-    /*
-    <li class="nav-active"><a href="index.html">首页</a></li>
-            <li><a href="route_list.html">门票</a></li>
-            <li><a href="route_list.html">酒店</a></li>
-            <li><a href="route_list.html">香港车票</a></li>
-            <li><a href="route_list.html">出境游</a></li>
-            <li><a href="route_list.html">国内游</a></li>
-            <li><a href="route_list.html">港澳游</a></li>
-            <li><a href="route_list.html">抱团定制</a></li>
-            <li><a href="route_list.html">全球自由行</a></li>
-            <li><a href="favoriterank.html">收藏排行榜</a></li>
-     */
     $(function () {
-        console.log("执行header.html")
         $.post("category/findCategorys", function (data) {
             var categorys = '<li class="nav-active"><a href="index.html">首页</a></li>';
 
@@ -24,20 +11,19 @@
             categorys += '<li><a href="favoriterank.html">收藏排行榜</a></li>';
             $("#ul_category").html(categorys)
         })
-        $.post("user/autoLogin", function (user) {
-            if (user) {
-                $("#span_user").html("欢迎回来，" + user.name);
-            }
-        });
         $.post("user/getUser", function (user) {
             if(user != null){
                 $("#span_user").html("欢迎回来，" + user.name);
-            }else{
-                $("#span_user").html("");
-                $("#span_collect").html("");
-                $("#btn_exit").html("");
+                $("#span_collect").html("我的收藏");
+                $("#btn_exit").html("退出");
             }
-
+        });
+        $.post("user/autoLogin", function (user) {
+            if (user != null) {
+                $("#span_user").html("欢迎回来，" + user.name);
+                $("#span_collect").html("我的收藏");
+                $("#btn_exit").html("退出");
+            }
         });
 
         $("#btn_exit").click(function () {
@@ -68,9 +54,9 @@
         </div>
         <!-- 登录状态  -->
         <div class="login">
-            <span id="span_user">欢迎回来，admin</span>
-            <a href="myfavorite.html" class="collection" id="span_collect">我的收藏</a>
-            <a id="btn_exit" href="javascript:void(0);">退出</a>
+            <span id="span_user"></span>
+            <a href="myfavorite.html" class="collection" id="span_collect"></a>
+            <a id="btn_exit" href="javascript:void(0);"></a>
         </div>
     </div>
     <div class="header_wrap">

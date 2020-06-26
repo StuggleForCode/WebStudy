@@ -20,7 +20,7 @@ public interface RouteDao {
 
     int favoriteCount(String rid);
 
-    int findFavOrderPageCount(int currentPage, int pageSize);
+    int findFavOrderPageCount();
 
     List<Route> findFavorderPage(int currentPage, int pageSize);
 }
